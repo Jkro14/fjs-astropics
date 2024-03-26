@@ -1,0 +1,61 @@
+---
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+
+  <!-- Agregar Tailwind CSS -->
+  <script is:inline>
+    const defaultTheme = require('tailwindcss/defaultTheme')
+
+    module.exports = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+          },
+        },
+      },
+      plugins: [
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/aspect-ratio'),
+        require('@tailwindcss/typography'),
+      ]
+    }
+  </script>
+
+  <style is:inline>
+    @import 'https://cdn.skypack.dev/tailwindcss@3.2.4/src/tailwind.css';
+  </style>
+</head>
+
+<body class="bg-gray-100">
+
+  <!-- Usar Flexbox y Tailwind CSS para el menú -->
+  <nav class="flex justify-between items-center p-4">
+    <div class="flex space-x-4">
+      <a href="/" class="text-gray-500 hover:text-indigo-500">Inici</a>
+      <a href="/upload" class="text-gray-500 hover:text-indigo-500">Afegir foto</a>
+      <a href="/mypics" class="text-gray-500 hover:text-indigo-500">Mi perfil</a>
+    </div>
+
+    <a href="/logout" class="text-gray-500 hover:text-indigo-500">Logout</a>
+  </nav>
+
+  <!-- Titulo con Typography -->
+  <h1 class="text-3xl font-bold mt-4 mb-8 text-center">{title}</h1>
+  <img src="/favicon.svg" alt="logo" class="w-1/5 mx-auto"/>
+
+  <!-- Contenido -->
+  <main class="max-w-2xl mx-auto p-4">
+    <slot />
+
+</body>
+
+</html>
